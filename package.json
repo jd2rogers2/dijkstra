@@ -1,0 +1,23 @@
+{
+  "name": "dijkstra",
+  "version": "1.0.0",
+  "description": "interview q practice",
+  "main": "solution.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jd2rogers2/dijkstra.git"
+  },
+  "author": "@jd2rogers2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jd2rogers2/dijkstra/issues"
+  },
+  "homepage": "https://github.com/jd2rogers2/dijkstra#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  }
+}
