@@ -8,6 +8,57 @@
 // }
 // find shortest path from a to e
 
+// recursively find all paths to end
+// get each path's total
+
+// get all possible routes
+// get time for each route
+// get fastest route
+
+const getAllRoutes = (points, start, end) => {
+  let dictionary = {};
+  recursion(points, [start], end, dictionary);
+  return Object.values(dictionary);
+}
+
+const recursion = (points, currentPath, end, pathsDictionary) => {
+  if (currentPath[currentPath.length - 1] === end) {
+    pathsDictionary[Object.keys(pathsDictionary).length] = currentPath;
+    return;
+  }
+
+  let nextNode = currentPath[currentPath.length - 1];
+  let children = Object.keys(points[nextNode]);
+  for (let x = 0; x < children.length; x++) {
+    if (!currentPath.includes(children[x])) {
+      recursion(points, [...currentPath, children[x]], end, pathsDictionary);
+    }
+  }
+}
+
+const getSortedRouteTimes = (points, start, end) => {
+  let routes = getAllRoutes(points, start, end);
+  let routeTimes = [];
+  for (let y = 0; y < routes.length; y++) {
+    routeTimes.push([routes[y], getRoutesTime(points, routes[y])]);
+  }
+  return routeTimes.sort((a, b) => a[1] - b[1]);
+}
+
+const getRoutesTime = (points, route) => {
+  let time = 0;
+
+  for (let z = 0; z < route.length - 1; z++) {
+    time += points[route[z]][route[z + 1]];
+  }
+
+  return time;
+}
+
+const getFastestRoute = (points, start, end) => getSortedRouteTimes(points, start, end)[0];
+
 module.exports = {
-  solution: points => {}
+  getAllRoutes,
+  getSortedRouteTimes,
+  getFastestRoute
 };
