@@ -16,22 +16,22 @@
 // get fastest route
 
 const getAllRoutes = (points, start, end) => {
-  let dictionary = {};
-  recursion(points, [start], end, dictionary);
-  return Object.values(dictionary);
+  let routes = [];
+  recursion(points, [start], end, routes);
+  return routes;
 }
 
-const recursion = (points, currentPath, end, pathsDictionary) => {
-  if (currentPath[currentPath.length - 1] === end) {
-    pathsDictionary[Object.keys(pathsDictionary).length] = currentPath;
+const recursion = (points, currentRoute, end, routes) => {
+  if (currentRoute[currentRoute.length - 1] === end) {
+    routes.push(currentRoute);
     return;
   }
 
-  let nextNode = currentPath[currentPath.length - 1];
+  let nextNode = currentRoute[currentRoute.length - 1];
   let children = Object.keys(points[nextNode]);
   for (let x = 0; x < children.length; x++) {
-    if (!currentPath.includes(children[x])) {
-      recursion(points, [...currentPath, children[x]], end, pathsDictionary);
+    if (!currentRoute.includes(children[x])) {
+      recursion(points, [...currentRoute, children[x]], end, routes);
     }
   }
 }
