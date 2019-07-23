@@ -1,6 +1,6 @@
 require('mocha');
 var expect = require('chai').expect;
-const { getFastestRoute } = require('../solution');
+const { getFastestRoute, dijkstra } = require('../solution');
 
 const points = {
   a: {b: 6, d: 1},
@@ -29,5 +29,23 @@ describe('getFastestRoute', () => {
   it('from a to b is 7', () => {
     expect(getFastestRoute(points, 'a', 'b')[0]).to.eql(['a', 'd', 'b']);
     expect(getFastestRoute(points, 'a', 'b')[1]).to.equal(3);
+  });
+});
+
+describe('dijkstra', () => {
+  it('from a to c is 7', () => {
+    expect(dijkstra(points, 'a', 'c')).to.equal(7);
+  });
+
+  it('from a to e is 2', () => {
+    expect(dijkstra(points, 'a', 'e')).to.equal(2);
+  });
+
+  it('from d to c is 6', () => {
+    expect(dijkstra(points, 'd', 'c')).to.equal(6);
+  });
+
+  it('from a to b is 3', () => {
+    expect(dijkstra(points, 'a', 'b')).to.equal(3);
   });
 });

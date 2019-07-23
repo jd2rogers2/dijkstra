@@ -57,8 +57,47 @@ const getRoutesTime = (points, route) => {
 
 const getFastestRoute = (points, start, end) => getSortedRouteTimes(points, start, end)[0];
 
+// naive, inefficient above. dijkstra below
+
+// maintain dictionary with node key and shortest dist value
+// from start go thru children in asc order
+// maintain distance traveled var
+// assign time to key of that child if lower than existing
+// don't go into already processed nodes
+
+const dijkstra = (points, start, end) => {
+  let dictionary = {[start]: 0};
+  dijkstraRecursion(points, start, start, dictionary);
+  return dictionary[end];
+}
+
+
+const dijkstraRecursion = (points, current, start, dict) => {
+  let nextChild = getNextChild(points, current, dict, start);
+  while (nextChild) {
+    dict[nextChild] = (dict[current] || 0) + points[current][nextChild];
+    dijkstraRecursion(points, nextChild, start, dict);
+    nextChild = getNextChild(points, current, dict, start);
+  }
+}
+
+const getNextChild = (points, node, dict, start) => {
+  let lowestVal = null;
+  let lowestKey = null;
+  for (let j in points[node]) {
+    // if it's the next lowest node and ...
+    // it's not in the dictionary already or would be a lower value than current value in dictionary
+    if ((dict[j] === undefined || points[node][j] + dict[node] < dict[j]) && (lowestVal === null || points[node][j] < lowestVal)) {
+      lowestVal = points[node][j];
+      lowestKey = j;
+    }
+  }
+  return lowestKey;
+}
+
 module.exports = {
   getAllRoutes,
   getSortedRouteTimes,
-  getFastestRoute
+  getFastestRoute,
+  dijkstra
 };
