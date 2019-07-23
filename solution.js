@@ -59,6 +59,10 @@ const getFastestRoute = (points, start, end) => getSortedRouteTimes(points, star
 
 // naive, inefficient above. dijkstra below
 
+// resources:
+// https://medium.com/@adriennetjohnson/a-walkthrough-of-dijkstras-algorithm-in-javascript-e94b74192026
+// https://www.youtube.com/watch?v=pVfj6mxhdMw
+
 // maintain dictionary with node key and shortest dist value
 // from start go thru children in asc order
 // maintain distance traveled var
